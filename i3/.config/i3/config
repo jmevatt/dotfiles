@@ -193,8 +193,9 @@ mode "$mode_gaps_outer" {
   bindsym Escape mode "default"
 }
 
-# ── Screenshots ───────────────────────────────────────────────────────────────
-bindsym Mod1+Shift+4 exec --no-startup-id flameshot gui
+# ── Screenshots (macOS-style, auto-copy to clipboard) ────────────────────────
+bindsym Mod1+Shift+4 exec --no-startup-id flameshot gui -c
+bindsym Mod1+Shift+3 exec --no-startup-id flameshot full -c
 
 # ── Display ────────────────────────────────────────────────────────────────────
 bindsym $mod+F7 exec --no-startup-id ~/bin/toggle-monitors.sh
