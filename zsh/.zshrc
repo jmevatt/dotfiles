@@ -122,6 +122,13 @@ source ~/.env # NEVER READ THIS FILE
 export NNN_OPENER=xdg-open
 export NNN_FIFO=/tmp/nnn.fifo
 
+# Auto-refresh XAUTHORITY for new shells — handles X11 session restarts gracefully
+# (SDDM creates a new /tmp/xauth_* file per session; stale refs break xclip/flameshot)
+if [[ -z "$XAUTHORITY" || ! -f "$XAUTHORITY" ]]; then
+    export XAUTHORITY=$(ls -t /tmp/xauth_* 2>/dev/null | head -1)
+    [[ -n "$TMUX" && -n "$XAUTHORITY" ]] && tmux set-environment XAUTHORITY "$XAUTHORITY"
+fi
+
 # Colors: 4 contexts — purple, blue, green, yellow (Catppuccin Mocha)
 export NNN_COLORS='#cba6f7#89b4fa#a6e3a1#f9e2af'
 
