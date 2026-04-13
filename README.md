@@ -13,7 +13,8 @@ dotfiles/
 ├── starship/    → ~/.config/starship.toml
 ├── zsh/         → ~/.zshrc
 ├── git/         → ~/.gitconfig
-└── vex-shell/   → ~/.config/quickshell/vex-shell/   (Quickshell fork, see CREDITS.md)
+├── tmux/        → ~/.tmux.conf
+└── vex-shell/   → ~/.config/quickshell/caelestia/   (Quickshell fork, see CREDITS.md)
 ```
 
 ## Usage
