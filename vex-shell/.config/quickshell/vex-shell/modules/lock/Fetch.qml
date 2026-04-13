@@ -42,7 +42,7 @@ ColumnLayout {
 
         MonoText {
             Layout.fillWidth: true
-            text: "caelestiafetch.sh"
+            text: "vexfetch.sh"
             font.pointSize: root.width > 400 ? Appearance.font.size.larger : Appearance.font.size.normal
             elide: Text.ElideRight
         }
@@ -51,7 +51,7 @@ ColumnLayout {
             Layout.fillHeight: true
             active: !iconLoader.active
 
-            sourceComponent: SysInfo.isDefaultLogo ? caelestiaLogo : distroIcon
+            sourceComponent: SysInfo.isDefaultLogo ? vexLogo : distroIcon
         }
     }
 
@@ -66,7 +66,7 @@ ColumnLayout {
             Layout.fillHeight: true
             active: root.width > 320
 
-            sourceComponent: SysInfo.isDefaultLogo ? caelestiaLogo : distroIcon
+            sourceComponent: SysInfo.isDefaultLogo ? vexLogo : distroIcon
         }
 
         ColumnLayout {
@@ -143,7 +143,7 @@ ColumnLayout {
     }
 
     Component {
-        id: caelestiaLogo
+        id: vexLogo
 
         Logo {
             width: height

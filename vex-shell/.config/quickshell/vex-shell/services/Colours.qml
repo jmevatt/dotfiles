@@ -80,7 +80,7 @@ Singleton {
     }
 
     function reloadHyprRules(): void {
-        const str = "keyword layerrule %1 %2, match:namespace caelestia-drawers";
+        const str = "keyword layerrule %1 %2, match:namespace vex-drawers";
         Hypr.extras.batchMessage([str.arg("blur").arg(transparency.enabled ? 1 : 0), str.arg("ignore_alpha").arg(transparency.base - 0.03)]);
     }
 

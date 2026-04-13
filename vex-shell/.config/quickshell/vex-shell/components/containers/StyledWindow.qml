@@ -6,6 +6,6 @@ PanelWindow {
     // qmllint enable uncreatable-type
     required property string name
 
-    WlrLayershell.namespace: `caelestia-${name}`
+    WlrLayershell.namespace: `vex-${name}`
     color: "transparent"
 }

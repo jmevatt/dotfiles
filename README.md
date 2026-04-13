@@ -12,7 +12,8 @@ dotfiles/
 ├── kitty/       → ~/.config/kitty/
 ├── starship/    → ~/.config/starship.toml
 ├── zsh/         → ~/.zshrc
-└── git/         → ~/.gitconfig
+├── git/         → ~/.gitconfig
+└── vex-shell/   → ~/.config/quickshell/vex-shell/   (Quickshell fork, see CREDITS.md)
 ```
 
 ## Usage

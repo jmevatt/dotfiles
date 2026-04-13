@@ -159,7 +159,7 @@ Scope {
     LoggingCategory {
         id: lc
 
-        name: "caelestia.qml.shortcuts"
+        name: "vex.qml.shortcuts"
         defaultLogLevel: LoggingCategory.Info
     }
 }

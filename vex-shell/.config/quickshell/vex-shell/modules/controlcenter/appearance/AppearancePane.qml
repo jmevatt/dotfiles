@@ -263,7 +263,7 @@ Item {
     LoggingCategory {
         id: lc
 
-        name: "caelestia.qml.controlcenter.appearance"
+        name: "vex.qml.controlcenter.appearance"
         defaultLogLevel: LoggingCategory.Info
     }
 }

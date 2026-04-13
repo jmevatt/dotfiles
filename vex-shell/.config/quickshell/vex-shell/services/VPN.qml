@@ -480,7 +480,7 @@ Singleton {
     LoggingCategory {
         id: lc
 
-        name: "caelestia.qml.services.vpn"
+        name: "vex.qml.services.vpn"
         defaultLogLevel: LoggingCategory.Info
     }
 }
