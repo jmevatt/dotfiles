@@ -1,0 +1,198 @@
+# ═══════════════════════════════════════════════════════════════════════════
+# Starship — Jordan's homelab / Evatt Labs prompt
+# Palette: Catppuccin Mocha (matches kitty + nnn)
+# Font: JetBrainsMono Nerd Font (requires Nerd Font glyphs)
+# ═══════════════════════════════════════════════════════════════════════════
+
+palette = "catppuccin_mocha"
+
+# Two-line prompt — room to breathe, dense info on top, clean arrow below
+format = """
+[](mauve)\
+$os\
+$username\
+[](bg:blue fg:mauve)\
+$hostname\
+[](bg:surface0 fg:blue)\
+$git_branch\
+$git_status\
+[](bg:base fg:surface0)\
+$kubernetes\
+$aws\
+$terraform\
+$docker_context\
+$golang\
+$python\
+$nodejs\
+$rust\
+$cmd_duration\
+$line_break\
+$directory\
+$character"""
+
+add_newline = true
+command_timeout = 1000
+
+# ── Components ──────────────────────────────────────────────────────────────
+
+[os]
+disabled = false
+style = "bg:mauve fg:base"
+format = "[ $symbol ]($style)"
+
+[os.symbols]
+Arch = "󰣇"
+Linux = ""
+Macos = ""
+
+[username]
+show_always = true
+style_user = "bg:mauve fg:base"
+style_root = "bg:red fg:base bold"
+format = "[$user ]($style)"
+
+[hostname]
+ssh_only = false
+style = "bg:blue fg:base"
+format = "[@$hostname ]($style)"
+disabled = false
+
+[directory]
+style = "fg:sapphire"
+format = "[$path]($style) "
+truncation_length = 3
+truncation_symbol = "…/"
+read_only = " "
+read_only_style = "fg:red"
+
+[directory.substitutions]
+"~/code/evattlabs-infra" = "󱃾 infra"
+"~/code/kraai-backend" = " kraai-be"
+"~/code/kraai-frontend" = " kraai-fe"
+"~/code/kraai-infra" = "󰡨 kraai-infra"
+"~/code/kraai-cli" = " kraai-cli"
+"~/code/quant-lab" = "󰄧 quant"
+
+# ── Git ─────────────────────────────────────────────────────────────────────
+
+[git_branch]
+symbol = ""
+style = "bg:surface0 fg:lavender"
+format = "[ $symbol $branch ]($style)"
+
+[git_status]
+style = "bg:surface0 fg:peach"
+format = "[$all_status$ahead_behind ]($style)"
+ahead = "⇡${count}"
+behind = "⇣${count}"
+diverged = "⇕⇡${ahead_count}⇣${behind_count}"
+conflicted = "="
+untracked = "?${count}"
+modified = "!${count}"
+staged = "+${count}"
+renamed = "»${count}"
+deleted = "✘${count}"
+stashed = "≡"
+
+# ── Infra context (only when relevant) ──────────────────────────────────────
+
+[kubernetes]
+disabled = false
+symbol = "󱃾 "
+style = "fg:sapphire"
+format = '[ $symbol$context( \($namespace\))]($style)'
+detect_files = ["k8s.yaml", "kustomization.yaml", "Chart.yaml"]
+detect_folders = ["manifests", "charts", "kustomize"]
+
+[kubernetes.context_aliases]
+"default" = "local"
+
+[aws]
+symbol = "󰸏 "
+style = "fg:peach"
+format = '[ $symbol($profile )(\($region\) )]($style)'
+disabled = false
+
+[aws.region_aliases]
+us-east-1 = "use1"
+us-east-2 = "use2"
+us-west-2 = "usw2"
+
+[terraform]
+symbol = "󱁢 "
+style = "fg:mauve"
+format = "[ $symbol$workspace ]($style)"
+
+[docker_context]
+symbol = "󰡨 "
+style = "fg:blue"
+format = "[ $symbol$context ]($style)"
+only_with_files = true
+
+# ── Language versions (show in project dirs only) ───────────────────────────
+
+[golang]
+symbol = " "
+style = "fg:teal"
+format = "[ $symbol($version) ]($style)"
+
+[python]
+symbol = " "
+style = "fg:yellow"
+format = '[ $symbol($version)(\($virtualenv\)) ]($style)'
+
+[nodejs]
+symbol = "󰎙 "
+style = "fg:green"
+format = "[ $symbol($version) ]($style)"
+
+[rust]
+symbol = " "
+style = "fg:maroon"
+format = "[ $symbol($version) ]($style)"
+
+# ── Meta ────────────────────────────────────────────────────────────────────
+
+[cmd_duration]
+min_time = 2_000
+style = "fg:subtext0"
+format = "[ 󱑆 $duration ]($style)"
+
+[character]
+success_symbol = "[\\$](bold green)"
+error_symbol = "[\\$](bold red)"
+vimcmd_symbol = "[\\$](bold mauve)"
+
+[line_break]
+disabled = false
+
+# ═══════════════════════════════════════════════════════════════════════════
+# Catppuccin Mocha palette
+# ═══════════════════════════════════════════════════════════════════════════
+[palettes.catppuccin_mocha]
+rosewater = "#f5e0dc"
+flamingo  = "#f2cdcd"
+pink      = "#f5c2e7"
+mauve     = "#cba6f7"
+red       = "#f38ba8"
+maroon    = "#eba0ac"
+peach     = "#fab387"
+yellow    = "#f9e2af"
+green     = "#a6e3a1"
+teal      = "#94e2d5"
+sky       = "#89dceb"
+sapphire  = "#74c7ec"
+blue      = "#89b4fa"
+lavender  = "#b4befe"
+text      = "#cdd6f4"
+subtext1  = "#bac2de"
+subtext0  = "#a6adc8"
+overlay2  = "#9399b2"
+overlay1  = "#7f849c"
+overlay0  = "#6c7086"
+surface2  = "#585b70"
+surface1  = "#45475a"
+surface0  = "#313244"
+base      = "#1e1e2e"
+mantle    = "#181825"
+crust     = "#11111b"
