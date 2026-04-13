@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=picom
+Comment=X11 compositor (replaces xfwm4 built-in)
+Exec=picom -b
+Terminal=false
+X-GNOME-Autostart-enabled=true
+StartupNotify=false

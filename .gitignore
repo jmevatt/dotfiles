@@ -21,3 +21,9 @@ Thumbs.db
 
 # Stow working files
 .stow-local-ignore.bak
+
+# XFCE runtime / session / personal state
+xfce4/.config/xfce4/notes/
+xfce4/.config/xfce4/desktop/
+xfce4/.config/xfce4/xfconf/xfce-perchannel-xml/*.bak-*
+xfce4/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-notifyd.xml

@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Deskflow
+Comment=Keyboard and mouse sharing across machines
+Exec=deskflow
+Terminal=false
+X-GNOME-Autostart-enabled=true
+StartupNotify=false

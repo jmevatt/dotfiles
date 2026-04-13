@@ -1,0 +1,41 @@
+<?xml version="1.1" encoding="UTF-8"?>
+
+<channel name="displays" version="1.0">
+  <property name="ActiveProfile" type="string" value="Default"/>
+  <property name="Notify" type="int" value="1"/>
+  <property name="AutoEnableProfiles" type="int" value="3"/>
+  <property name="Default" type="empty">
+    <property name="HDMI-0" type="string" value="Acer Technologies 27&quot;">
+      <property name="Active" type="bool" value="true"/>
+      <property name="EDID" type="string" value="108f2dc7f5c9546b3788951f8267c9bac33af9ad"/>
+      <property name="DuplicateEDID" type="bool" value="false"/>
+      <property name="Resolution" type="string" value="2560x1440"/>
+      <property name="RefreshRate" type="double" value="144.00615200085122"/>
+      <property name="ModeFlags" type="uint64" value="9"/>
+      <property name="Rotation" type="int" value="0"/>
+      <property name="Reflection" type="string" value="0"/>
+      <property name="Primary" type="bool" value="false"/>
+      <property name="Scale" type="double" value="1"/>
+      <property name="Position" type="empty">
+        <property name="X" type="int" value="3440"/>
+        <property name="Y" type="int" value="0"/>
+      </property>
+    </property>
+    <property name="DP-0" type="string" value="ASUSTek COMPUTER INC 34&quot;">
+      <property name="Active" type="bool" value="true"/>
+      <property name="EDID" type="string" value="15470a9b2036b8f321bb4bd35c99a1049b57263d"/>
+      <property name="DuplicateEDID" type="bool" value="false"/>
+      <property name="Resolution" type="string" value="3440x1440"/>
+      <property name="RefreshRate" type="double" value="165"/>
+      <property name="ModeFlags" type="uint64" value="9"/>
+      <property name="Rotation" type="int" value="0"/>
+      <property name="Reflection" type="string" value="0"/>
+      <property name="Primary" type="bool" value="true"/>
+      <property name="Scale" type="double" value="1"/>
+      <property name="Position" type="empty">
+        <property name="X" type="int" value="0"/>
+        <property name="Y" type="int" value="0"/>
+      </property>
+    </property>
+  </property>
+</channel>
