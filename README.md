@@ -14,6 +14,9 @@ dotfiles/
 ├── zsh/         → ~/.zshrc
 ├── git/         → ~/.gitconfig
 ├── tmux/        → ~/.tmux.conf
+├── i3/          → ~/.config/i3/
+├── polybar/     → ~/.config/polybar/
+├── i3status/    → ~/.config/i3status/
 └── vex-shell/   → ~/.config/quickshell/caelestia/   (Quickshell fork, see CREDITS.md)
 ```
 

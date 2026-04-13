@@ -1,0 +1,62 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# i3status config — Helicon
+# ─────────────────────────────────────────────────────────────────────────────
+
+general {
+  colors = true
+  interval = 5
+  color_good     = "#a6e3a1"
+  color_degraded = "#f9e2af"
+  color_bad      = "#f38ba8"
+  output_format  = "i3bar"
+}
+
+order += "cpu_usage"
+order += "memory"
+order += "disk /"
+order += "disk /data"
+order += "ethernet enp14s0"
+order += "volume master"
+order += "tztime local"
+
+cpu_usage {
+  format = " CPU %usage"
+  degraded_threshold = 80
+  bad_threshold      = 95
+}
+
+memory {
+  format         = " %used / %total"
+  threshold_degraded = "4G"
+  threshold_critical = "1G"
+}
+
+disk "/" {
+  format          = " %avail"
+  low_threshold   = 20
+  threshold_type  = percentage
+}
+
+disk "/data" {
+  format        = "󰋊 %avail"
+  low_threshold = 10
+  threshold_type = percentage
+  # Remove this block if /data doesn't exist on Helicon
+}
+
+ethernet enp14s0 {
+  format_up   = "󰈀 %ip"
+  format_down = "󰈀 down"
+}
+
+volume master {
+  format       = "󰕾 %volume"
+  format_muted = "󰖁 muted"
+  device       = "default"
+  mixer        = "Master"
+  mixer_idx    = 0
+}
+
+tztime local {
+  format = "󰃰 %Y-%m-%d %H:%M"
+}
