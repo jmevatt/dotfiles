@@ -96,8 +96,12 @@ alias -g T='| tail'
 alias -g NUL='>/dev/null 2>&1'
 alias -g C='| wc -l'
 
-# Suffix aliases — type `./foo.yaml` and it opens in nvim
-alias -s {yaml,yml,toml,json,md,txt,conf,sh,py,go,ts,tsx,js}=nvim
+# Suffix aliases — type `./foo.yaml` and it opens in nvim.
+# Scoped to config/doc types only. Code extensions (sh/py/go/ts/tsx/js)
+# are deliberately excluded: scripts need to execute via shebang, and
+# source files are normally opened via editor keybind or $EDITOR, not
+# by typing `./foo.ext` at the prompt. The alias would hijack that path.
+alias -s {yaml,yml,toml,json,md,txt,conf}=nvim
 
 # ── Helper functions ─────────────────────────────────────────────────────────
 take() { mkdir -p "$@" && cd "${@:$#}"; }                # mkdir + cd in one
@@ -151,3 +155,8 @@ export NNN_BMS="h:$HOME;c:$HOME/Code;d:$HOME/Documents;m:/mnt"
 # cd on quit (type 'n' instead of 'nnn')
 source "$HOME/.config/nnn/quitcd.zsh"
 
+
+alias claude-mem='bun "/home/jmevatt/.claude/plugins/marketplaces/thedotmack/plugin/scripts/worker-service.cjs"'
+
+# Added by codebase-memory-mcp install
+export PATH="/home/jmevatt/.local/bin:$PATH"
