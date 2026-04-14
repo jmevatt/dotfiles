@@ -16,7 +16,6 @@ dotfiles/
 ├── kitty/       → ~/.config/kitty/
 ├── starship/    → ~/.config/starship.toml
 ├── tmux/        → ~/.tmux.conf
-├── vex-shell/   → ~/.config/quickshell/
 └── zsh/         → ~/.zshrc
 ```
 
@@ -30,7 +29,7 @@ git clone git@git.evattlabs.com:jordan/dotfiles ~/code/dotfiles
 cd ~/code/dotfiles
 
 # Install everything
-stow autostart git gnome iphone kitty starship tmux vex-shell zsh
+stow autostart git gnome iphone kitty starship tmux zsh
 
 # Install one
 stow kitty

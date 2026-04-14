@@ -10,22 +10,21 @@ Each top-level directory is a **stow package**. Its interior mirrors `$HOME`.
 
 `.stowrc` pins the target to `/home/jmevatt`, so `stow` commands work from anywhere in the repo.
 
-**Editing gotcha:** after `stow`, files live as symlinks. Editing either the repo path *or* `$HOME`
+**Editing gotcha:** after `stow`, files live as symlinks. Editing either the repo path _or_ `$HOME`
 path modifies the same file — they're the same inode.
 
 ## Packages
 
-| Package      | Contents                                                                            |
-|--------------|-------------------------------------------------------------------------------------|
-| `autostart`  | `.config/autostart/*.desktop` — deskflow, discord, kitty, signal                    |
-| `git`        | `.gitconfig` (user/email + global excludesfile)                                     |
-| `gnome`      | GTK3/4 theming, dconf branch exports, dump/apply/extension-install scripts          |
-| `iphone`     | `iPhone.desktop` + `afc-open` / `iphone-open` helpers for iOS device mounting       |
-| `kitty`      | `.config/kitty/` terminal config                                                    |
-| `starship`   | `.config/starship.toml` prompt                                                      |
-| `tmux`       | `.tmux.conf`                                                                        |
-| `vex-shell`  | `.config/quickshell/` — Quickshell/Vex shell config                                 |
-| `zsh`        | `.zshrc`                                                                            |
+| Package     | Contents                                                                      |
+| ----------- | ----------------------------------------------------------------------------- |
+| `autostart` | `.config/autostart/*.desktop` — deskflow, discord, kitty, signal              |
+| `git`       | `.gitconfig` (user/email + global excludesfile)                               |
+| `gnome`     | GTK3/4 theming, dconf branch exports, dump/apply/extension-install scripts    |
+| `iphone`    | `iPhone.desktop` + `afc-open` / `iphone-open` helpers for iOS device mounting |
+| `kitty`     | `.config/kitty/` terminal config                                              |
+| `starship`  | `.config/starship.toml` prompt                                                |
+| `tmux`      | `.tmux.conf`                                                                  |
+| `zsh`       | `.zshrc`                                                                      |
 
 ## GNOME workflow
 
@@ -61,7 +60,7 @@ stow -R gnome               # restow (useful after adding/removing files in a pa
 ## When adding a new package
 
 1. Create `newpkg/` with interior mirroring `$HOME` (e.g. `newpkg/.config/newapp/config.toml`).
-2. If some files should be tracked but *not* symlinked, add them to `newpkg/.stow-local-ignore`
+2. If some files should be tracked but _not_ symlinked, add them to `newpkg/.stow-local-ignore`
    (one regex per line, anchored with `^/`).
 3. `stow newpkg` to install.
 4. Update the package table in this file and `README.md`.
