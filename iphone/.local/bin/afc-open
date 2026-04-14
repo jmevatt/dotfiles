@@ -1,6 +1,6 @@
 #!/bin/bash
 # Translate afc://UDID[:PORT]/path → /run/user/$UID/gvfs/afc:host=UDID[,port=PORT]/path
-# and open it in Thunar. Workaround for Thunar not handling afc:// URIs directly.
+# and open it in Nautilus. Workaround for file managers not handling afc:// URIs directly.
 set -euo pipefail
 
 uri="${1:-}"
@@ -30,4 +30,4 @@ if [[ ! -d "$fuse_root" ]]; then
   done
 fi
 
-exec thunar "$fuse_root$path"
+exec nautilus "$fuse_root$path"

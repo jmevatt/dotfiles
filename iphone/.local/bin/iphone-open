@@ -1,6 +1,6 @@
 #!/bin/bash
 # Auto-detect a connected iOS device, mount its AFC root via gvfs,
-# and open the FUSE path in Thunar. Notifies on failure.
+# and open the FUSE path in Nautilus. Notifies on failure.
 set -euo pipefail
 
 notify() {
@@ -32,4 +32,4 @@ if [[ ! -d "$fuse_root" ]]; then
   exit 1
 fi
 
-exec thunar "$fuse_root"
+exec nautilus "$fuse_root"
