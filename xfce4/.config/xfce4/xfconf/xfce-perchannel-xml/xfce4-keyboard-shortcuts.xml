@@ -56,6 +56,8 @@
       <property name="&lt;Super&gt;r" type="string" value=""/>
       <property name="&lt;Alt&gt;F2" type="string" value=""/>
       <property name="&lt;Alt&gt;F3" type="string" value=""/>
+      <property name="&lt;Alt&gt;&lt;Shift&gt;3" type="string" value="xfce4-screenshooter -fc"/>
+      <property name="&lt;Alt&gt;&lt;Shift&gt;4" type="string" value="xfce4-screenshooter -rc"/>
     </property>
   </property>
   <property name="xfwm4" type="empty">
