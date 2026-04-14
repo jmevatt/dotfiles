@@ -1,0 +1,83 @@
+#!/usr/bin/env bash
+# gnome-settings-dump — export curated GNOME dconf branches to dotfiles.
+#
+# Dumps a whitelisted set of dconf paths (user-facing preferences, keybindings,
+# extension configs) into per-branch .ini files under gnome/dconf/. Skips
+# session state, wallpaper paths, and other non-portable gunk.
+#
+# Usage: gnome-settings-dump
+# Env:   DOTFILES_REPO (default: ~/code/dotfiles)
+set -euo pipefail
+
+REPO="${DOTFILES_REPO:-$HOME/code/dotfiles}"
+OUT="$REPO/gnome/dconf"
+
+if [[ ! -d "$REPO/gnome" ]]; then
+  echo "error: $REPO/gnome does not exist" >&2
+  exit 1
+fi
+mkdir -p "$OUT"
+
+BRANCHES=(
+  /org/gnome/desktop/interface/
+  /org/gnome/desktop/wm/preferences/
+  /org/gnome/desktop/wm/keybindings/
+  /org/gnome/desktop/input-sources/
+  /org/gnome/desktop/peripherals/
+  /org/gnome/desktop/sound/
+  /org/gnome/desktop/privacy/
+  /org/gnome/desktop/notifications/
+  /org/gnome/desktop/a11y/interface/
+  /org/gnome/desktop/calendar/
+  /org/gnome/desktop/search-providers/
+  /org/gnome/settings-daemon/plugins/media-keys/
+  /org/gnome/settings-daemon/plugins/color/
+  /org/gnome/settings-daemon/plugins/power/
+  /org/gnome/shell/
+  /org/gnome/shell/extensions/
+  /org/gnome/shell/keybindings/
+  /org/gnome/shell/world-clocks/
+  /org/gnome/mutter/
+  /org/gnome/mutter/keybindings/
+  /org/gnome/mutter/wayland/keybindings/
+  /org/gnome/nautilus/preferences/
+  /org/gnome/nautilus/list-view/
+  /org/gnome/nautilus/icon-view/
+  /org/gnome/nautilus/compact-view/
+  /org/gnome/TextEditor/
+  /org/gnome/Console/
+  /org/gnome/gedit/preferences/
+  /org/gtk/settings/file-chooser/
+  /org/gtk/gtk4/settings/file-chooser/
+)
+
+# /org/gnome/desktop/interface/ -> org-gnome-desktop-interface.ini
+branch_to_filename() {
+  local b="$1"
+  b="${b#/}"
+  b="${b%/}"
+  echo "${b//\//-}.ini"
+}
+
+dumped=0
+skipped=0
+for branch in "${BRANCHES[@]}"; do
+  filename=$(branch_to_filename "$branch")
+  content=$(dconf dump "$branch" 2>/dev/null || true)
+  if [[ -z "$content" ]]; then
+    printf '  ⚠ skip (empty): %s\n' "$branch"
+    skipped=$((skipped + 1))
+    continue
+  fi
+  {
+    printf '# dconf-branch: %s\n' "$branch"
+    printf '# Regenerate: gnome-settings-dump\n'
+    printf '\n'
+    printf '%s\n' "$content"
+  } > "$OUT/$filename"
+  printf '  ✓ %s → %s\n' "$branch" "$filename"
+  dumped=$((dumped + 1))
+done
+
+printf '\nDumped %d branches, skipped %d empty.\n' "$dumped" "$skipped"
+printf 'Review: cd %s && git diff gnome/dconf\n' "$REPO"

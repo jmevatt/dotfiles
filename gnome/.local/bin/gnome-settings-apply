@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+# gnome-settings-apply — load dotfiles GNOME dconf state into current session.
+#
+# Reads each gnome/dconf/*.ini, extracts the '# dconf-branch: <path>' header,
+# and runs `dconf load <path> < file` for it.
+#
+# Usage: gnome-settings-apply [--dry-run]
+# Env:   DOTFILES_REPO (default: ~/code/dotfiles)
+set -euo pipefail
+
+REPO="${DOTFILES_REPO:-$HOME/code/dotfiles}"
+SRC="$REPO/gnome/dconf"
+
+DRY_RUN=0
+[[ "${1:-}" == "--dry-run" ]] && DRY_RUN=1
+
+if [[ ! -d "$SRC" ]]; then
+  echo "error: $SRC does not exist" >&2
+  exit 1
+fi
+
+shopt -s nullglob
+files=("$SRC"/*.ini)
+if [[ ${#files[@]} -eq 0 ]]; then
+  echo "no dconf .ini files found in $SRC — run gnome-settings-dump first"
+  exit 0
+fi
+
+loaded=0
+for ini in "${files[@]}"; do
+  header=$(head -n 1 "$ini")
+  if [[ "$header" != "# dconf-branch: "* ]]; then
+    printf '  ⚠ skip %s (no dconf-branch header)\n' "$(basename "$ini")"
+    continue
+  fi
+  branch="${header#\# dconf-branch: }"
+  if [[ $DRY_RUN -eq 1 ]]; then
+    printf '  · would load %s ← %s\n' "$branch" "$(basename "$ini")"
+  else
+    printf '  → %s ← %s\n' "$branch" "$(basename "$ini")"
+    dconf load "$branch" < "$ini"
+    loaded=$((loaded + 1))
+  fi
+done
+
+if [[ $DRY_RUN -eq 1 ]]; then
+  printf '\nDry run — no changes applied. Drop --dry-run to commit.\n'
+else
+  printf '\n✓ Loaded %d branches.\n' "$loaded"
+fi
