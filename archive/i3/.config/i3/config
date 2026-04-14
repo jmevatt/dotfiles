@@ -75,16 +75,16 @@ bindsym $mod+8 workspace number $ws8
 bindsym $mod+9 workspace number $ws9
 bindsym $mod+0 workspace number $ws10
 
-#bindsym $mod+Shift+1 move container to workspace number $ws1
-#bindsym $mod+Shift+2 move container to workspace number $ws2
-#bindsym $mod+Shift+3 move container to workspace number $ws3
-#bindsym $mod+Shift+4 move container to workspace number $ws4
-#bindsym $mod+Shift+5 move container to workspace number $ws5
-#bindsym $mod+Shift+6 move container to workspace number $ws6
-#bindsym $mod+Shift+7 move container to workspace number $ws7
-#bindsym $mod+Shift+8 move container to workspace number $ws8
-#bindsym $mod+Shift+9 move container to workspace number $ws9
-#bindsym $mod+Shift+0 move container to workspace number $ws10
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10
 
 bindsym $mod+bracketleft        workspace prev
 bindsym $mod+bracketright       workspace next
@@ -201,6 +201,7 @@ bindsym Mod1+Shift+3 exec --no-startup-id flameshot full -c
 bindsym $mod+F7 exec --no-startup-id ~/bin/toggle-monitors.sh
 
 # ── Screen lock ───────────────────────────────────────────────────────────────
+bindsym $mod+Shift+x exec --no-startup-id i3lock -c 1e1e2e -n
 
 # ── Media / volume ────────────────────────────────────────────────────────────
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
@@ -232,13 +233,17 @@ bar {
 }
 
 # ── Autostart ─────────────────────────────────────────────────────────────────
-exec_always --no-startup-id xrandr --output DP-0 --primary --mode 3440x1440 --rate 165 --output HDMI-0 --mode 2560x1440 --rate 144
+exec --no-startup-id xrandr --output DP-0 --primary --mode 3440x1440 --rate 165 --output HDMI-0 --mode 2560x1440 --rate 144
 exec --no-startup-id sleep 1 && xdotool mousemove 1720 720
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 exec_always --no-startup-id picom --daemon
 exec_always --no-startup-id dunst
 exec_always --no-startup-id nm-applet
-exec_always --no-startup-id feh --no-fehbg --bg-fill ~/pictures/wallpaper/cyberpunk.png
+exec --no-startup-id blueman-applet
+exec --no-startup-id lxqt-policykit-agent
+exec_always --no-startup-id feh --no-fehbg --bg-fill ~/pictures/wallpaper/night_city.jpg
 # exec --no-startup-id albert
 exec --no-startup-id deskflow
+exec --no-startup-id xset s 1800 1800
+exec_always --no-startup-id xss-lock -- i3lock -c 1e1e2e -n
 exec --no-startup-id redshift -l 30.2672:-97.7431 -t 6500:3500
