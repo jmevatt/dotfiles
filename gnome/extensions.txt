@@ -1,0 +1,17 @@
+# Curated GNOME Shell extensions to install on a fresh machine.
+# Format: <uuid>  # optional label/note
+# Blank lines and comments are ignored.
+#
+# Tweak this list and re-run gnome-extensions-install to converge.
+# UUIDs verified against extensions.gnome.org + upstream metadata.json (Apr 2026).
+
+# ── Day-1 essentials ────────────────────────────────────────────────
+appindicatorsupport@rgcjonas.gmail.com                   # AppIndicator (system tray icons — EGO #615)
+clipboard-history@alexsaveau.dev                         # Clipboard History (searchable clipboard — EGO #1701)
+caffeine@patapon.info                                    # Caffeine (inhibit screen sleep — EGO #517)
+monitor@astraext.github.io                               # Astra Monitor (CPU/GPU/RAM/temps — EGO #3961)
+user-theme@gnome-shell-extensions.gcampax.github.com     # User Themes (enable custom shell themes — EGO #19)
+
+# ── Strong yes — aesthetic ──────────────────────────────────────────
+dash-to-dock@micxgx.gmail.com                            # Dash to Dock (macOS-style dock — EGO #307)
+blur-my-shell@aunetx                                     # Blur My Shell (frosted glass — EGO #3193)

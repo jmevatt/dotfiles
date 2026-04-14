@@ -5,10 +5,13 @@ GNOME dotfiles for Helicon (and any future GNOME-on-Wayland install).
 ## What's stowed
 
 - `.local/bin/gnome-settings-{dump,apply}` — round-trip dconf settings to/from this repo.
+- `.local/bin/gnome-extensions-install` — install + enable the curated extension set from `extensions.txt`.
+- `.config/gtk-{3,4}.0/{gtk,colors}.css` — custom GTK theming (lavender accent `#c2c1ff` on near-black bg, Catppuccin Mocha color palette).
 
 ## What's NOT stowed
 
 - `dconf/` — plaintext exports of curated dconf branches. Tracked in git but excluded from `stow` (see `.stow-local-ignore`).
+- `extensions.txt` — curated UUID list read by `gnome-extensions-install`.
 - `README.md` — this file.
 
 ## Workflow
@@ -23,9 +26,29 @@ git add gnome/dconf && git commit -m "gnome: <what changed>"
 **Apply on a fresh machine (or restore after a reset):**
 ```
 stow gnome
+gnome-extensions-install          # install + enable curated extensions
+# — log out and back in —
 gnome-settings-apply --dry-run    # preview
 gnome-settings-apply              # commit
 ```
+
+## Extensions
+
+Curated list lives in `extensions.txt` (one UUID per line, `#` comments ok).
+
+**Install/sync:** `gnome-extensions-install` (idempotent — safe to re-run).
+Requires `gext` — install via `yay -S gnome-extensions-cli` or `pipx install gnome-extensions-cli`.
+
+**Current set** (see file for full list):
+- Day-1: AppIndicator, Clipboard History, Caffeine, Astra Monitor, User Themes
+- Aesthetic: Dash to Dock, Blur My Shell
+
+Extensions require a GNOME Shell **restart** after install before their dconf
+keys appear — on Wayland that means logout/login.
+
+**Adding an extension:** append the UUID to `extensions.txt`, re-run
+`gnome-extensions-install`, log out/in, tweak config in its settings pane,
+run `gnome-settings-dump` to capture the config.
 
 ## Why per-branch files instead of one big dump?
 

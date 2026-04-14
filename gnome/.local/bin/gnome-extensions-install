@@ -1,0 +1,107 @@
+#!/usr/bin/env bash
+# gnome-extensions-install — install + enable curated GNOME extensions from
+# dotfiles. Reads gnome/extensions.txt and converges the set: installs any
+# missing UUIDs via `gext`, then enables each via `gnome-extensions enable`.
+#
+# Prerequisite: gext (gnome-extensions-cli). Install with one of:
+#   yay -S gnome-extensions-cli        # AUR
+#   pipx install gnome-extensions-cli  # recommended
+#
+# Usage:   gnome-extensions-install [--dry-run] [--enable-only]
+# Env:     DOTFILES_REPO (default: ~/code/dotfiles)
+set -euo pipefail
+
+REPO="${DOTFILES_REPO:-$HOME/code/dotfiles}"
+LIST="$REPO/gnome/extensions.txt"
+
+DRY_RUN=0
+ENABLE_ONLY=0
+for arg in "$@"; do
+  case "$arg" in
+    --dry-run)     DRY_RUN=1 ;;
+    --enable-only) ENABLE_ONLY=1 ;;
+    -h|--help)
+      sed -n '2,11p' "$0" | sed 's|^# *||'
+      exit 0
+      ;;
+    *) printf 'unknown arg: %s\n' "$arg" >&2; exit 2 ;;
+  esac
+done
+
+if [[ ! -f "$LIST" ]]; then
+  printf 'error: %s not found\n' "$LIST" >&2
+  exit 1
+fi
+
+if ! command -v gext >/dev/null 2>&1 && [[ $ENABLE_ONLY -eq 0 && $DRY_RUN -eq 0 ]]; then
+  cat >&2 <<'EOS'
+error: gext (gnome-extensions-cli) not found.
+
+Install with one of:
+  yay -S gnome-extensions-cli
+  pipx install gnome-extensions-cli
+  pip install --user gnome-extensions-cli
+
+Then re-run gnome-extensions-install.
+EOS
+  exit 1
+fi
+
+if ! command -v gnome-extensions >/dev/null 2>&1; then
+  printf 'error: gnome-extensions CLI not found — is GNOME Shell installed?\n' >&2
+  exit 1
+fi
+
+# Extract UUIDs: first whitespace-delimited token on each non-comment/non-blank line.
+mapfile -t UUIDS < <(awk '/^[[:space:]]*#/ { next } /^[[:space:]]*$/ { next } { print $1 }' "$LIST")
+
+if [[ ${#UUIDS[@]} -eq 0 ]]; then
+  printf 'no extensions listed in %s\n' "$LIST"
+  exit 0
+fi
+
+printf 'Converging %d extension(s) from %s\n\n' "${#UUIDS[@]}" "$LIST"
+
+installed=0
+enabled=0
+failed=0
+for uuid in "${UUIDS[@]}"; do
+  printf '  · %s\n' "$uuid"
+
+  if [[ $DRY_RUN -eq 1 ]]; then
+    [[ $ENABLE_ONLY -eq 0 ]] && printf '      would install\n'
+    printf '      would enable\n'
+    continue
+  fi
+
+  if [[ $ENABLE_ONLY -eq 0 ]]; then
+    if gext install "$uuid" >/dev/null 2>&1; then
+      installed=$((installed + 1))
+      printf '      ✓ installed (or already present)\n'
+    else
+      printf '      ⚠ install failed — check UUID at https://extensions.gnome.org/\n'
+      failed=$((failed + 1))
+      continue
+    fi
+  fi
+
+  if gnome-extensions enable "$uuid" 2>/dev/null; then
+    enabled=$((enabled + 1))
+    printf '      ✓ enabled\n'
+  else
+    printf '      ⚠ enable failed (extension may need GNOME Shell restart first)\n'
+    failed=$((failed + 1))
+  fi
+done
+
+printf '\nSummary: installed=%d enabled=%d failed=%d\n' "$installed" "$enabled" "$failed"
+
+if [[ $DRY_RUN -eq 0 ]]; then
+  cat <<EOS
+
+⚠ Newly-installed extensions require a GNOME Shell restart to fully load.
+  On Wayland: log out and back in (Alt+F2 'r' does not work).
+  After restart: gnome-settings-dump && git -C $REPO diff gnome/dconf
+  to capture per-extension config under /org/gnome/shell/extensions/.
+EOS
+fi
