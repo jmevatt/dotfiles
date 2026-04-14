@@ -6,7 +6,10 @@ GNOME dotfiles for Helicon (and any future GNOME-on-Wayland install).
 
 - `.local/bin/gnome-settings-{dump,apply}` — round-trip dconf settings to/from this repo.
 - `.local/bin/gnome-extensions-install` — install + enable the curated extension set from `extensions.txt`.
-- `.config/gtk-{3,4}.0/{gtk,colors}.css` — custom GTK theming (lavender accent `#c2c1ff` on near-black bg, Catppuccin Mocha color palette).
+
+GTK themes are applied via dconf (captured in `dconf/org-gnome-desktop-interface.ini`).
+Current: **WhiteSur-Dark** GTK + shell, WhiteSur-dark icons, WhiteSur cursors
+(AUR: `whitesur-gtk-theme` + `whitesur-icon-theme` + `whitesur-cursor-theme-git`).
 
 ## What's NOT stowed
 
