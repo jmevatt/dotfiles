@@ -1,0 +1,33 @@
+#!/bin/bash
+# Translate afc://UDID[:PORT]/path → /run/user/$UID/gvfs/afc:host=UDID[,port=PORT]/path
+# and open it in Thunar. Workaround for Thunar not handling afc:// URIs directly.
+set -euo pipefail
+
+uri="${1:-}"
+if [[ -z "$uri" ]]; then
+  echo "usage: afc-open afc://UDID[:PORT][/path]" >&2
+  exit 2
+fi
+
+rest="${uri#afc://}"
+authority="${rest%%/*}"
+path="${rest#"$authority"}"
+[[ -z "$path" ]] && path="/"
+
+if [[ "$authority" == *:* ]]; then
+  udid="${authority%:*}"
+  port="${authority##*:}"
+  fuse_root="/run/user/$(id -u)/gvfs/afc:host=$udid,port=$port"
+else
+  fuse_root="/run/user/$(id -u)/gvfs/afc:host=$authority"
+fi
+
+if [[ ! -d "$fuse_root" ]]; then
+  gio mount "$uri" || true
+  for _ in 1 2 3 4 5; do
+    [[ -d "$fuse_root" ]] && break
+    sleep 0.3
+  done
+fi
+
+exec thunar "$fuse_root$path"

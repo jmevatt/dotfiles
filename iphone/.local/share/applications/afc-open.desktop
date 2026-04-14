@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Open iOS device (AFC)
+Comment=Translate afc:// URIs to gvfs FUSE path and open in Thunar
+Exec=/home/jmevatt/.local/bin/afc-open %u
+Icon=phone-apple-iphone
+Terminal=false
+NoDisplay=true
+MimeType=x-scheme-handler/afc;
+Categories=System;FileManager;

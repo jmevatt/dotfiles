@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=iPhone
+Comment=Browse connected iPhone via AFC
+Exec=/home/jmevatt/.local/bin/iphone-open
+Icon=phone-apple-iphone
+Terminal=false
+Categories=System;FileManager;

@@ -1,0 +1,35 @@
+#!/bin/bash
+# Auto-detect a connected iOS device, mount its AFC root via gvfs,
+# and open the FUSE path in Thunar. Notifies on failure.
+set -euo pipefail
+
+notify() {
+  if command -v notify-send >/dev/null 2>&1; then
+    notify-send -a iphone-open -i phone-apple-iphone "iPhone" "$1"
+  else
+    echo "$1" >&2
+  fi
+}
+
+udid="$(idevice_id -l 2>/dev/null | head -1)"
+if [[ -z "$udid" ]]; then
+  notify "No iOS device connected. Plug it in and tap Trust."
+  exit 1
+fi
+
+fuse_root="/run/user/$(id -u)/gvfs/afc:host=$udid"
+
+if [[ ! -d "$fuse_root" ]]; then
+  gio mount "afc://$udid/" || true
+  for _ in 1 2 3 4 5 6 7 8; do
+    [[ -d "$fuse_root" ]] && break
+    sleep 0.3
+  done
+fi
+
+if [[ ! -d "$fuse_root" ]]; then
+  notify "Failed to mount iPhone. Is it unlocked + trusted?"
+  exit 1
+fi
+
+exec thunar "$fuse_root"
