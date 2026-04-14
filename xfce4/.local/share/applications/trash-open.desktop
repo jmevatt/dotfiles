@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Open Trash
+Comment=Open ~/.local/share/Trash/files in Thunar (workaround for trash:// URI bug)
+Exec=/home/jmevatt/.local/bin/trash-open
+Icon=user-trash
+Terminal=false
+NoDisplay=true
+MimeType=x-scheme-handler/trash;
+Categories=System;FileManager;

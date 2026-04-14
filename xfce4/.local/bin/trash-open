@@ -1,0 +1,9 @@
+#!/bin/bash
+# Open the user Trash dir in Thunar. Workaround for Thunar's `thunar trash:///`
+# returning "Operation not supported" on current Arch build, which also breaks
+# the xfdesktop Trash icon double-click.
+#
+# Opens ~/.local/share/Trash/files/ directly — you can drag files back out
+# with cut/paste or just move them to restore them.
+set -euo pipefail
+exec thunar "$HOME/.local/share/Trash/files/"

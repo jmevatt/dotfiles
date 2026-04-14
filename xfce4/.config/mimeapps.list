@@ -55,8 +55,9 @@ application/x-php=nvim-open.desktop
 application/javascript=nvim-open.desktop
 application/x-javascript=nvim-open.desktop
 inode/directory=thunar.desktop
-x-scheme-handler/afc=thunar.desktop
+x-scheme-handler/afc=afc-open.desktop
 x-scheme-handler/file=thunar.desktop
+x-scheme-handler/trash=trash-open.desktop
 
 [Added Associations]
 x-scheme-handler/http=xfce4-web-browser.desktop;
