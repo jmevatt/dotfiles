@@ -1,7 +1,7 @@
 # CLAUDE.md — dotfiles
 
 Solo repo of Jordan's Linux workstation dotfiles, managed with [GNU Stow](https://www.gnu.org/software/stow/).
-Remote: `git@git.evattlabs.com:jordan/dotfiles`. Primary target host: **Helicon** (Arch, GNOME/Wayland).
+Primary target host: **Helicon** (Arch, **XFCE4 + xfwm4 on X11**). The `labwc/`, `sway/`, `waybar/`, `mako/`, `swaync/`, `swaylock/`, `wofi/`, and `kanshi/` packages are maintained but inactive on the current session.
 
 ## Model
 
@@ -34,6 +34,7 @@ path modifies the same file — they're the same inode.
 | `waybar`    | `.config/waybar/{config.jsonc,style.css}` — status bar (Catppuccin Mocha)     |
 | `wofi`      | `.config/wofi/{config,style.css}` — app launcher (Catppuccin Mocha)           |
 | `wezterm`   | `.config/wezterm/wezterm.lua` terminal config                                 |
+| `xfce`      | xfconf/panel/Thunar dump + apply scripts (xfce-settings-{dump,apply}) — **active DE** |
 | `zsh`       | `.zshrc`                                                                      |
 
 ## GNOME workflow

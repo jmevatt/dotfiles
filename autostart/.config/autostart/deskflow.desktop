@@ -2,7 +2,7 @@
 Type=Application
 Name=Deskflow
 Comment=Keyboard and mouse sharing across machines
-Exec=deskflow
+Exec=env XDG_SESSION_TYPE=x11 deskflow
 Terminal=false
 X-GNOME-Autostart-enabled=true
 StartupNotify=false

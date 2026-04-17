@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+# xfce-settings-apply — restore XFCE4 runtime state from dotfiles snapshots.
+#
+# Copies xfce/xfconf/*.xml, xfce/panel/*, and xfce/thunar/* into the live
+# config locations, then restarts xfconfd + panel + wm so changes take effect.
+# Intended for fresh-machine setup or rollback to the committed state.
+#
+# Usage: xfce-settings-apply [--dry-run]
+# Env:   DOTFILES_REPO (default: ~/code/dotfiles)
+set -euo pipefail
+
+REPO="${DOTFILES_REPO:-$HOME/code/dotfiles}"
+PKG="$REPO/xfce"
+DRY=0
+[[ "${1:-}" == "--dry-run" ]] && DRY=1
+
+if [[ ! -d "$PKG" ]]; then
+  echo "error: $PKG does not exist" >&2
+  exit 1
+fi
+
+XFCONF_DIR="$HOME/.config/xfce4/xfconf/xfce-perchannel-xml"
+PANEL_DIR="$HOME/.config/xfce4/panel"
+THUNAR_DIR="$HOME/.config/Thunar"
+
+run() {
+  if [[ $DRY -eq 1 ]]; then
+    echo "[dry-run] $*"
+  else
+    eval "$*"
+  fi
+}
+
+echo "==> stopping xfconfd (required for XML reload)"
+run "pkill -x xfconfd 2>/dev/null || true"
+sleep 1
+
+echo "==> restoring xfconf channels"
+run "mkdir -p '$XFCONF_DIR'"
+if [[ -d "$PKG/xfconf" ]]; then
+  for xml in "$PKG"/xfconf/*.xml; do
+    [[ -f "$xml" ]] || continue
+    run "cp -f '$xml' '$XFCONF_DIR/'"
+    echo "   ✓ $(basename "$xml")"
+  done
+fi
+
+echo "==> restoring panel layout"
+run "mkdir -p '$PANEL_DIR'"
+if [[ -d "$PKG/panel" ]] && compgen -G "$PKG/panel/*" > /dev/null; then
+  run "cp -r '$PKG/panel/.' '$PANEL_DIR/'"
+  echo "   ✓ panel dir restored"
+fi
+
+echo "==> restoring Thunar config"
+run "mkdir -p '$THUNAR_DIR'"
+[[ -f "$PKG/thunar/accels.scm" ]] && run "cp -f '$PKG/thunar/accels.scm' '$THUNAR_DIR/'"
+[[ -f "$PKG/thunar/uca.xml" ]] && run "cp -f '$PKG/thunar/uca.xml' '$THUNAR_DIR/'"
+
+echo "==> restarting XFCE components"
+# xfconfd auto-respawns via D-Bus on next query.
+run "xfce4-panel -r >/dev/null 2>&1 &" || true
+run "xfdesktop --reload >/dev/null 2>&1 &" || true
+run "xfwm4 --replace >/dev/null 2>&1 &" || true
+run "xfsettingsd --replace >/dev/null 2>&1 &" || true
+
+echo
+echo "done. a full logout/login is the most reliable way to fully apply."

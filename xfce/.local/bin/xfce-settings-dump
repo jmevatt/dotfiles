@@ -1,0 +1,79 @@
+#!/usr/bin/env bash
+# xfce-settings-dump — snapshot XFCE4 runtime state into the dotfiles repo.
+#
+# XFCE stores most settings in xfconfd (atomic-rename on every write), which
+# breaks direct stow symlinks. This script mirrors the gnome/ package pattern:
+# dump a curated set of xfconf channels + panel layout + Thunar config to
+# git-tracked snapshots under xfce/{xfconf,panel,thunar}/, which xfce-settings-apply
+# restores on a fresh machine.
+#
+# Usage: xfce-settings-dump
+# Env:   DOTFILES_REPO (default: ~/code/dotfiles)
+set -euo pipefail
+
+REPO="${DOTFILES_REPO:-$HOME/code/dotfiles}"
+PKG="$REPO/xfce"
+
+if [[ ! -d "$PKG" ]]; then
+  echo "error: $PKG does not exist" >&2
+  exit 1
+fi
+
+# Curated xfconf channels (everything user-facing; skips transient state).
+CHANNELS=(
+  displays
+  keyboards
+  pointers
+  thunar
+  xfce4-desktop
+  xfce4-keyboard-shortcuts
+  xfce4-notifyd
+  xfce4-panel
+  xfce4-power-manager
+  xfce4-screensaver
+  xfce4-session
+  xfwm4
+  xsettings
+)
+
+XFCONF_DIR="$HOME/.config/xfce4/xfconf/xfce-perchannel-xml"
+PANEL_DIR="$HOME/.config/xfce4/panel"
+THUNAR_DIR="$HOME/.config/Thunar"
+
+OUT_XFCONF="$PKG/xfconf"
+OUT_PANEL="$PKG/panel"
+OUT_THUNAR="$PKG/thunar"
+
+mkdir -p "$OUT_XFCONF" "$OUT_PANEL" "$OUT_THUNAR"
+
+echo "==> xfconf channels → $OUT_XFCONF"
+# Clear stale XML before dump so deleted channels don't linger.
+rm -f "$OUT_XFCONF"/*.xml
+for ch in "${CHANNELS[@]}"; do
+  src="$XFCONF_DIR/$ch.xml"
+  if [[ -f "$src" ]]; then
+    cp -f "$src" "$OUT_XFCONF/$ch.xml"
+    echo "   ✓ $ch"
+  else
+    echo "   - $ch (no XML on disk — skipped)"
+  fi
+done
+
+echo "==> panel layout → $OUT_PANEL"
+if [[ -d "$PANEL_DIR" ]]; then
+  rm -rf "$OUT_PANEL"/*
+  # Copy launcher-* subdirs and any rc files, skip transient caches.
+  cp -r "$PANEL_DIR"/. "$OUT_PANEL"/ 2>/dev/null || true
+  echo "   ✓ $(find "$OUT_PANEL" -maxdepth 1 -type d -name 'launcher-*' | wc -l) launcher dirs"
+fi
+
+echo "==> Thunar → $OUT_THUNAR"
+if [[ -d "$THUNAR_DIR" ]]; then
+  rm -f "$OUT_THUNAR"/accels.scm "$OUT_THUNAR"/uca.xml
+  [[ -f "$THUNAR_DIR/accels.scm" ]] && cp -f "$THUNAR_DIR/accels.scm" "$OUT_THUNAR/"
+  [[ -f "$THUNAR_DIR/uca.xml" ]] && cp -f "$THUNAR_DIR/uca.xml" "$OUT_THUNAR/"
+  ls "$OUT_THUNAR" | sed 's/^/   ✓ /'
+fi
+
+echo
+echo "done. review with: cd $REPO && git status xfce/"
