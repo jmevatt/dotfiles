@@ -21,9 +21,19 @@ path modifies the same file — they're the same inode.
 | `git`       | `.gitconfig` (user/email + global excludesfile)                               |
 | `gnome`     | GTK3/4 theming, dconf branch exports, dump/apply/extension-install scripts    |
 | `iphone`    | `iPhone.desktop` + `afc-open` / `iphone-open` helpers for iOS device mounting |
+| `kanshi`    | `.config/kanshi/config` — declarative wlroots output profiles                  |
 | `kitty`     | `.config/kitty/` terminal config                                              |
+| `labwc`     | `.config/labwc/{rc.xml,autostart,environment,menu.xml}` — full-floating wlroots compositor |
+| `mako`      | `.config/mako/config` — wayland notification daemon (Catppuccin Mocha)        |
+| `nnn`       | `.config/nnn/` — `quitcd.zsh` + `plugins/` (runtime dirs not tracked)         |
 | `starship`  | `.config/starship.toml` prompt                                                |
+| `sway`      | `.config/sway/{config,conf.d/*.conf}` — modular sway config (Helicon)         |
+| `swaylock`  | `.config/swaylock/config` — screen lock theming (Catppuccin Mocha)            |
+| `swaync`    | `.config/swaync/{config.json,style.css}` — notification center (Catppuccin Mocha) |
 | `tmux`      | `.tmux.conf`                                                                  |
+| `waybar`    | `.config/waybar/{config.jsonc,style.css}` — status bar (Catppuccin Mocha)     |
+| `wofi`      | `.config/wofi/{config,style.css}` — app launcher (Catppuccin Mocha)           |
+| `wezterm`   | `.config/wezterm/wezterm.lua` terminal config                                 |
 | `zsh`       | `.zshrc`                                                                      |
 
 ## GNOME workflow

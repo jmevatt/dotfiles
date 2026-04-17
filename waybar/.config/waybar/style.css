@@ -1,0 +1,79 @@
+/* Catppuccin Mocha */
+@define-color base    #1e1e2e;
+@define-color mantle  #181825;
+@define-color crust   #11111b;
+@define-color surface0 #313244;
+@define-color surface1 #45475a;
+@define-color text    #cdd6f4;
+@define-color subtext #a6adc8;
+@define-color mauve   #cba6f7;
+@define-color pink    #f5c2e7;
+@define-color red     #f38ba8;
+@define-color green   #a6e3a1;
+@define-color yellow  #f9e2af;
+@define-color blue    #89b4fa;
+@define-color teal    #94e2d5;
+
+* {
+  font-family: "JetBrainsMono Nerd Font", monospace;
+  font-size: 13px;
+  font-weight: 500;
+  min-height: 0;
+}
+
+window#waybar {
+  background: transparent;
+  color: @text;
+}
+
+/* Bar background — semi-transparent rounded pill (only on populated sides) */
+.modules-left,
+.modules-right {
+  background-color: alpha(@base, 0.85);
+  border: 1px solid @surface1;
+  border-radius: 12px;
+  padding: 0 8px;
+  margin: 4px 2px;
+}
+
+/* Taskbar — app icons in modules-left */
+#taskbar button {
+  padding: 0 6px;
+  margin: 4px 2px;
+  background: transparent;
+  border-radius: 6px;
+  border: none;
+}
+
+#taskbar button:hover {
+  background: @surface0;
+  box-shadow: none;
+}
+
+#taskbar button.active {
+  background: @mauve;
+}
+
+#clock,
+#cpu,
+#memory,
+#temperature,
+#network,
+#pulseaudio,
+#tray {
+  padding: 0 10px;
+  color: @text;
+}
+
+#cpu       { color: @blue; }
+#memory    { color: @green; }
+#temperature { color: @yellow; }
+#network   { color: @teal; }
+#pulseaudio { color: @pink; }
+#clock     { color: @mauve; font-weight: 600; }
+
+#temperature.critical { color: @red; }
+
+#tray > .needs-attention {
+  -gtk-icon-effect: highlight;
+}

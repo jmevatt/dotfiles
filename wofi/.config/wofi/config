@@ -1,0 +1,12 @@
+show=drun
+allow_images=true
+image_size=32
+prompt=run
+width=600
+height=400
+location=center
+hide_scroll=true
+no_actions=true
+insensitive=true
+matching=fuzzy
+key_expand=Tab

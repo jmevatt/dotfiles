@@ -1,0 +1,21 @@
+#!/bin/sh
+# cliphist storage wrapper that skips obvious secrets.
+# Used by autostart to invoke wl-paste --watch ... cliphist-store-safe
+
+content=$(cat)
+
+# Skip if content matches anything secret-shaped
+if printf '%s' "$content" | grep -qE \
+    -e 'AKIA[0-9A-Z]{16}' \
+    -e 'aws_(access|secret)_' \
+    -e 'ghp_[A-Za-z0-9]{36,}' \
+    -e 'gho_[A-Za-z0-9]{36,}' \
+    -e 'sk-[A-Za-z0-9]{20,}' \
+    -e 'BEGIN [A-Z ]+ PRIVATE KEY' \
+    -e '(api[_-]?key|secret|password|passwd|token)[[:space:]]*[:=]' \
+    -e '^[A-Za-z0-9+/]{40,}={0,2}$'   # bare base64 blob (entropy heuristic)
+then
+    exit 0
+fi
+
+printf '%s' "$content" | cliphist store

@@ -1,0 +1,23 @@
+# labwc env vars — sourced before session start
+
+# Identify session (used by xdg-desktop-portal, dbus-activated apps)
+XDG_CURRENT_DESKTOP=labwc:wlroots
+
+# NVIDIA + wlroots: software cursors avoid corruption / lag on the 5090
+WLR_NO_HARDWARE_CURSORS=1
+
+# Force Vulkan renderer — more stable on NVIDIA than the default GLES2
+WLR_RENDERER=vulkan
+
+# Wayland-native toolkits
+QT_QPA_PLATFORM=wayland
+SDL_VIDEODRIVER=wayland
+MOZ_ENABLE_WAYLAND=1
+_JAVA_AWT_WM_NONREPARENTING=1
+
+# Cursor theme/size — matches WhiteSur GTK theme she installed earlier
+XCURSOR_THEME=WhiteSur-cursors
+XCURSOR_SIZE=24
+
+# GTK theming for non-GNOME wlroots session
+GTK_THEME=WhiteSur-Dark

@@ -1,0 +1,86 @@
+// Waybar — Helicon. Works under sway and labwc.
+// Reload: pkill -SIGUSR2 waybar
+{
+  "layer": "top",
+  "position": "top",
+  "height": 32,
+  "spacing": 6,
+  "margin-top": 4,
+  "margin-left": 8,
+  "margin-right": 8,
+
+  "modules-left": [
+    "wlr/taskbar"
+  ],
+  "modules-center": [],
+  "modules-right": [
+    "tray",
+    "network",
+    "pulseaudio",
+    "memory",
+    "cpu",
+    "temperature",
+    "clock"
+  ],
+
+  "wlr/taskbar": {
+    "format": "{icon}",
+    "icon-size": 18,
+    "tooltip-format": "{title}",
+    "on-click": "activate",
+    "on-click-middle": "close",
+    "ignore-list": ["wofi"]
+  },
+
+  "tray": {
+    "icon-size": 18,
+    "spacing": 8
+  },
+
+  "clock": {
+    "format": "{:%a %b %d  %I:%M %p}",
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+    "calendar": {
+      "mode": "month",
+      "weeks-pos": "right"
+    }
+  },
+
+  "cpu": {
+    "format": "  {usage}%",
+    "interval": 5,
+    "on-click": "wezterm start -- btop"
+  },
+
+  "memory": {
+    "format": "  {percentage}%",
+    "interval": 5,
+    "tooltip-format": "{used:0.1f}G / {total:0.1f}G"
+  },
+
+  "temperature": {
+    "thermal-zone": 0,
+    "format": " {temperatureC}°C",
+    "critical-threshold": 80,
+    "format-critical": " {temperatureC}°C"
+  },
+
+  "network": {
+    "format-wifi": "  {essid}",
+    "format-ethernet": "  {ifname}",
+    "format-disconnected": "  off",
+    "tooltip-format": "{ifname}: {ipaddr}/{cidr}",
+    "on-click": "wezterm start -- nmtui"
+  },
+
+  "pulseaudio": {
+    "format": "{icon} {volume}%",
+    "format-muted": "  muted",
+    "format-icons": {
+      "default": ["", "", ""]
+    },
+    "scroll-step": 5,
+    "on-click": "pavucontrol",
+    "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+  }
+}

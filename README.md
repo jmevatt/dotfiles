@@ -13,9 +13,19 @@ dotfiles/
 ├── git/         → ~/.gitconfig
 ├── gnome/       → ~/.config/gtk-{3,4}.0/, ~/.local/bin/gnome-*   (see gnome/README.md)
 ├── iphone/      → ~/.local/bin/{afc,iphone}-open + iPhone.desktop
+├── kanshi/      → ~/.config/kanshi/config (wlroots output profiles)
 ├── kitty/       → ~/.config/kitty/
+├── labwc/       → ~/.config/labwc/ (rc.xml, autostart, environment, menu.xml)
+├── mako/        → ~/.config/mako/config
+├── nnn/         → ~/.config/nnn/ (quitcd.zsh + plugins/)
 ├── starship/    → ~/.config/starship.toml
+├── sway/        → ~/.config/sway/{config,conf.d/}
+├── swaylock/    → ~/.config/swaylock/config
+├── swaync/      → ~/.config/swaync/ (config.json + style.css)
 ├── tmux/        → ~/.tmux.conf
+├── waybar/      → ~/.config/waybar/ (config.jsonc + style.css)
+├── wezterm/     → ~/.config/wezterm/
+├── wofi/        → ~/.config/wofi/ (config + style.css)
 └── zsh/         → ~/.zshrc
 ```
 
@@ -29,7 +39,7 @@ git clone git@git.evattlabs.com:jordan/dotfiles ~/code/dotfiles
 cd ~/code/dotfiles
 
 # Install everything
-stow autostart git gnome iphone kitty starship tmux zsh
+stow autostart git gnome iphone kanshi kitty labwc mako nnn starship sway swaylock swaync tmux waybar wezterm wofi zsh
 
 # Install one
 stow kitty

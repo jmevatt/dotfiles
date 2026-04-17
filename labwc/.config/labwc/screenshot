@@ -1,0 +1,26 @@
+#!/bin/sh
+# Screenshot helper — saves to $XDG_PICTURES_DIR/screenshots and copies to clipboard.
+# Usage: screenshot full | area
+set -eu
+
+PICDIR="$(xdg-user-dir PICTURES 2>/dev/null || echo "$HOME/pictures")"
+DIR="$PICDIR/screenshots"
+mkdir -p "$DIR"
+FILE="$DIR/$(date +%Y%m%d-%H%M%S).png"
+
+case "${1:-full}" in
+    full)
+        grim "$FILE"
+        ;;
+    area)
+        grim -g "$(slurp)" "$FILE" || exit 0   # cancelled = no error
+        ;;
+    *)
+        echo "usage: $0 full|area" >&2
+        exit 2
+        ;;
+esac
+
+# Explicit mime type — wl-copy doesn't auto-detect binary stdin reliably
+wl-copy --type image/png < "$FILE"
+notify-send -i "$FILE" "Screenshot saved" "$(basename "$FILE")  ·  copied to clipboard"

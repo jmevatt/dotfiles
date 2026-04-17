@@ -1,0 +1,60 @@
+/* Catppuccin Mocha */
+window {
+  background-color: rgba(30, 30, 46, 0.95);
+  border: 2px solid #cba6f7;
+  border-radius: 12px;
+  font-family: "JetBrainsMono Nerd Font", monospace;
+  font-size: 14px;
+}
+
+#input {
+  margin: 12px;
+  padding: 10px 14px;
+  background: #313244;
+  color: #cdd6f4;
+  border: 1px solid #45475a;
+  border-radius: 8px;
+  caret-color: #f5c2e7;
+}
+
+#input:focus {
+  border-color: #cba6f7;
+  outline: none;
+}
+
+#inner-box {
+  margin: 0 12px 12px 12px;
+  background: transparent;
+}
+
+#outer-box {
+  background: transparent;
+}
+
+#scroll {
+  background: transparent;
+}
+
+#text {
+  color: #cdd6f4;
+  margin-left: 8px;
+}
+
+#entry {
+  padding: 8px;
+  border-radius: 6px;
+  background: transparent;
+}
+
+#entry:selected {
+  background: #cba6f7;
+}
+
+#entry:selected #text {
+  color: #1e1e2e;
+  font-weight: 600;
+}
+
+#img {
+  margin-right: 8px;
+}

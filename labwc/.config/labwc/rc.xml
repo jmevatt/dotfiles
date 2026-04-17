@@ -1,0 +1,156 @@
+<?xml version="1.0"?>
+<!--
+  Helicon labwc config — full-floating wlroots compositor, sway-flavored keybinds.
+  Reload: $mod+Shift+c · Exit: $mod+Shift+e
+  Reference: /usr/share/doc/labwc/rc.xml.all  ·  man labwc-config(5) labwc-actions(5)
+-->
+<labwc_config>
+
+  <core>
+    <decoration>server</decoration>
+    <gap>4</gap>
+    <adaptiveSync>yes</adaptiveSync>
+    <reuseOutputMode>yes</reuseOutputMode>
+  </core>
+
+  <theme>
+    <cornerRadius>6</cornerRadius>
+    <dropShadows>yes</dropShadows>
+    <font place="ActiveWindow"><name>JetBrainsMono Nerd Font</name><size>10</size></font>
+    <font place="InactiveWindow"><name>JetBrainsMono Nerd Font</name><size>10</size></font>
+    <font place="MenuItem"><name>JetBrainsMono Nerd Font</name><size>10</size></font>
+    <font place="OnScreenDisplay"><name>JetBrainsMono Nerd Font</name><size>11</size></font>
+    <titlebar>
+      <layout>icon:iconify,max,close</layout>
+      <showTitle>yes</showTitle>
+    </titlebar>
+  </theme>
+
+  <focus>
+    <followMouse>no</followMouse>
+    <raiseOnFocus>no</raiseOnFocus>
+  </focus>
+
+  <placement>
+    <policy>cascade</policy>
+    <cascadeOffset x="32" y="32" />
+  </placement>
+
+  <snapping>
+    <range inner="10" outer="10" />
+    <topMaximize>yes</topMaximize>
+    <notifyClient>always</notifyClient>
+  </snapping>
+
+  <!-- Custom snap regions — perfect for the 34" ultrawide -->
+  <regions>
+    <region name="left-half"   x="0%"   y="0%"  width="50%"  height="100%" />
+    <region name="right-half"  x="50%"  y="0%"  width="50%"  height="100%" />
+    <region name="top-half"    x="0%"   y="0%"  width="100%" height="50%"  />
+    <region name="bottom-half" x="0%"   y="50%" width="100%" height="50%"  />
+    <region name="left-third"  x="0%"   y="0%"  width="33%"  height="100%" />
+    <region name="mid-third"   x="33%"  y="0%"  width="34%"  height="100%" />
+    <region name="right-third" x="67%"  y="0%"  width="33%"  height="100%" />
+    <region name="center"      x="15%"  y="10%" width="70%"  height="80%"  />
+  </regions>
+
+  <desktops number="10" popupTime="800" prefix="ws" />
+
+  <keyboard>
+    <repeatRate>40</repeatRate>
+    <repeatDelay>250</repeatDelay>
+
+    <!-- No <default /> — labwc's defaults hardcode W-Return → alacritty
+         which can override custom bindings. Define everything explicitly. -->
+
+    <!-- ===== launch ===== -->
+    <keybind key="W-Return"><action name="Execute" command="wezterm" /></keybind>
+    <keybind key="C-space"><action name="Execute" command="wofi --show drun" /></keybind>
+    <keybind key="W-S-q"><action name="Close" /></keybind>
+
+    <!-- ===== session ===== -->
+    <keybind key="W-S-c"><action name="Reconfigure" /></keybind>
+    <keybind key="W-S-e"><action name="Exit" /></keybind>
+    <keybind key="W-C-l"><action name="Execute" command="swaylock" /></keybind>
+
+    <!-- ===== window state ===== -->
+    <keybind key="W-f"><action name="ToggleFullscreen" /></keybind>
+    <keybind key="W-m"><action name="ToggleMaximize" /></keybind>
+    <keybind key="W-space"><action name="ToggleAlwaysOnTop" /></keybind>
+    <!-- W-n moved to notification center; minimize via W-Down -->
+    <keybind key="W-i"><action name="Iconify" /></keybind>
+
+    <!-- ===== focus / cycle ===== -->
+    <keybind key="A-Tab"><action name="NextWindow" /></keybind>
+    <keybind key="A-S-Tab"><action name="PreviousWindow" /></keybind>
+
+    <!-- ===== snap to halves (arrow keys) ===== -->
+    <keybind key="W-Left"><action name="SnapToRegion" region="left-half" /></keybind>
+    <keybind key="W-Right"><action name="SnapToRegion" region="right-half" /></keybind>
+    <keybind key="W-Up"><action name="ToggleMaximize" /></keybind>
+    <keybind key="W-Down"><action name="Iconify" /></keybind>
+
+    <!-- ===== snap to thirds (Shift+arrow) — ultrawide gold ===== -->
+    <keybind key="W-S-Left"><action name="SnapToRegion" region="left-third" /></keybind>
+    <keybind key="W-S-Up"><action name="SnapToRegion" region="mid-third" /></keybind>
+    <keybind key="W-S-Right"><action name="SnapToRegion" region="right-third" /></keybind>
+    <keybind key="W-S-Down"><action name="SnapToRegion" region="center" /></keybind>
+
+    <!-- ===== desktops ===== -->
+    <keybind key="W-1"><action name="GoToDesktop" to="1" /></keybind>
+    <keybind key="W-2"><action name="GoToDesktop" to="2" /></keybind>
+    <keybind key="W-3"><action name="GoToDesktop" to="3" /></keybind>
+    <keybind key="W-4"><action name="GoToDesktop" to="4" /></keybind>
+    <keybind key="W-5"><action name="GoToDesktop" to="5" /></keybind>
+    <keybind key="W-6"><action name="GoToDesktop" to="6" /></keybind>
+    <keybind key="W-7"><action name="GoToDesktop" to="7" /></keybind>
+    <keybind key="W-8"><action name="GoToDesktop" to="8" /></keybind>
+    <keybind key="W-9"><action name="GoToDesktop" to="9" /></keybind>
+    <keybind key="W-0"><action name="GoToDesktop" to="10" /></keybind>
+
+    <keybind key="W-S-1"><action name="SendToDesktop" to="1" /></keybind>
+    <keybind key="W-S-2"><action name="SendToDesktop" to="2" /></keybind>
+    <keybind key="W-S-3"><action name="SendToDesktop" to="3" /></keybind>
+    <keybind key="W-S-4"><action name="SendToDesktop" to="4" /></keybind>
+    <keybind key="W-S-5"><action name="SendToDesktop" to="5" /></keybind>
+    <keybind key="W-S-6"><action name="SendToDesktop" to="6" /></keybind>
+    <keybind key="W-S-7"><action name="SendToDesktop" to="7" /></keybind>
+    <keybind key="W-S-8"><action name="SendToDesktop" to="8" /></keybind>
+    <keybind key="W-S-9"><action name="SendToDesktop" to="9" /></keybind>
+    <keybind key="W-S-0"><action name="SendToDesktop" to="10" /></keybind>
+
+    <keybind key="C-A-Left"><action name="GoToDesktop" to="left" /></keybind>
+    <keybind key="C-A-Right"><action name="GoToDesktop" to="right" /></keybind>
+
+    <!-- ===== screenshots (macOS-style: grim + slurp, save to ~/Pictures/screenshots/) ===== -->
+    <keybind key="C-S-3"><action name="Execute" command="/home/jmevatt/.config/labwc/screenshot full" /></keybind>
+    <keybind key="C-S-4"><action name="Execute" command="/home/jmevatt/.config/labwc/screenshot area" /></keybind>
+
+    <!-- ===== media keys (volume pipes through wob OSD via /tmp/wobsock) ===== -->
+    <keybind key="XF86_AudioRaiseVolume"><action name="Execute" command="sh -c 'wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+ &amp;&amp; wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk &quot;{print int(\$2*100)}&quot; &gt; /tmp/wobsock'" /></keybind>
+    <keybind key="XF86_AudioLowerVolume"><action name="Execute" command="sh -c 'wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- &amp;&amp; wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk &quot;{print int(\$2*100)}&quot; &gt; /tmp/wobsock'" /></keybind>
+    <keybind key="XF86_AudioMute"><action name="Execute" command="sh -c 'wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle &amp;&amp; (wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -q MUTED &amp;&amp; echo 0 || wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk &quot;{print int(\$2*100)}&quot;) &gt; /tmp/wobsock'" /></keybind>
+    <keybind key="XF86_AudioMicMute"><action name="Execute" command="wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle" /></keybind>
+    <keybind key="XF86_AudioPlay"><action name="Execute" command="playerctl play-pause" /></keybind>
+    <keybind key="XF86_AudioNext"><action name="Execute" command="playerctl next" /></keybind>
+    <keybind key="XF86_AudioPrev"><action name="Execute" command="playerctl previous" /></keybind>
+
+    <!-- ===== clipboard history (Super+V) ===== -->
+    <keybind key="W-v"><action name="Execute" command="sh -c 'cliphist list | wofi --dmenu | cliphist decode | wl-copy'" /></keybind>
+
+    <!-- ===== notification center toggle (Super+N) ===== -->
+    <keybind key="W-n"><action name="Execute" command="swaync-client -t -sw" /></keybind>
+  </keyboard>
+
+  <mouse>
+    <default />
+  </mouse>
+
+  <!-- Per-app rules — equivalent of sway's for_window -->
+  <windowRules>
+    <windowRule identifier="pavucontrol"          serverDecoration="yes" />
+    <windowRule identifier="org.gnome.Calculator" serverDecoration="yes" />
+    <windowRule title="Picture-in-Picture"        skipWindowSwitcher="yes" />
+  </windowRules>
+
+</labwc_config>

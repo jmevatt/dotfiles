@@ -1,0 +1,47 @@
+# swaylock — Catppuccin Mocha
+font=JetBrainsMono Nerd Font
+font-size=14
+
+# Background
+color=1e1e2eee
+image=
+indicator
+indicator-radius=120
+indicator-thickness=10
+indicator-idle-visible
+clock
+timestr=%I:%M %p
+datestr=%a, %b %d
+
+# Ring colors
+ring-color=313244
+inside-color=1e1e2ecc
+text-color=cdd6f4
+key-hl-color=cba6f7
+bs-hl-color=f38ba8
+separator-color=00000000
+
+# Verifying (after enter)
+ring-ver-color=89b4fa
+inside-ver-color=1e1e2ecc
+text-ver-color=cdd6f4
+
+# Wrong password
+ring-wrong-color=f38ba8
+inside-wrong-color=1e1e2ecc
+text-wrong-color=f38ba8
+
+# Cleared (after esc)
+ring-clear-color=f9e2af
+inside-clear-color=1e1e2ecc
+text-clear-color=f9e2af
+
+# Caps lock indicator
+ring-caps-lock-color=fab387
+text-caps-lock-color=fab387
+
+# Misc
+show-failed-attempts
+ignore-empty-password
+hide-keyboard-layout
+daemonize

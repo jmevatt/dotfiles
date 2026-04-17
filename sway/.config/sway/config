@@ -1,0 +1,20 @@
+# Sway main config — modular via conf.d/
+# Reload: $mod+Shift+c · Exit: $mod+Shift+e
+#
+# Launch on Helicon (NVIDIA RTX 5090):
+#   sway --unsupported-gpu
+
+set $mod Mod4
+set $term wezterm
+set $menu wofi --show drun
+
+include ~/.config/sway/conf.d/colors.conf
+include ~/.config/sway/conf.d/theme.conf
+include ~/.config/sway/conf.d/output.conf
+include ~/.config/sway/conf.d/input.conf
+include ~/.config/sway/conf.d/keybinds.conf
+include ~/.config/sway/conf.d/rules.conf
+include ~/.config/sway/conf.d/exec.conf
+
+# System default last so it can override / extend if needed
+include /etc/sway/config.d/*

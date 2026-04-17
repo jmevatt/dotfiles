@@ -1,0 +1,13 @@
+# kanshi — declarative output config for wlroots compositors (labwc, sway, river)
+# Reload via SIGHUP: pkill -HUP kanshi
+# List outputs: wlr-randr  (or `swaymsg -t get_outputs` under sway)
+
+profile helicon-dual {
+    output DP-4     mode 3440x1440@165Hz position 0,0
+    output HDMI-A-2 mode 2560x1440@144Hz position 3440,0
+}
+
+profile helicon-ultrawide-only {
+    output DP-4     mode 3440x1440@165Hz position 0,0
+    output HDMI-A-2 disable
+}
