@@ -9,7 +9,7 @@
   <core>
     <decoration>server</decoration>
     <gap>4</gap>
-    <adaptiveSync>yes</adaptiveSync>
+    <adaptiveSync>no</adaptiveSync>
     <reuseOutputMode>yes</reuseOutputMode>
   </core>
 
@@ -151,6 +151,13 @@
     <windowRule identifier="pavucontrol"          serverDecoration="yes" />
     <windowRule identifier="org.gnome.Calculator" serverDecoration="yes" />
     <windowRule title="Picture-in-Picture"        skipWindowSwitcher="yes" />
+
+    <!-- Pin gamescope (Steam games) to DP-4 and force fullscreen on map -->
+    <windowRule identifier="gamescope" serverDecoration="no" skipTaskbar="yes">
+      <action name="MoveToOutput" output="DP-4" />
+      <action name="ToggleFullscreen" />
+      <action name="Focus" />
+    </windowRule>
   </windowRules>
 
 </labwc_config>

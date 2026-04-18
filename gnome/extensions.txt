@@ -14,3 +14,4 @@ user-theme@gnome-shell-extensions.gcampax.github.com     # User Themes (enable c
 # ── Strong yes — aesthetic ──────────────────────────────────────────
 dash-to-dock@micxgx.gmail.com                            # Dash to Dock (macOS-style dock — EGO #307)
 blur-my-shell@aunetx                                     # Blur My Shell (frosted glass — EGO #3193)
+transparent-window-moving@noobsai.github.com             # Transparent Window Moving (translucent windows on drag/resize — EGO #1446)

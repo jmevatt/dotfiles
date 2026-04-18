@@ -61,6 +61,7 @@
       <property name="&lt;Shift&gt;&lt;Alt&gt;dollar" type="string" value="xfce4-screenshooter -r -c"/>
       <property name="&lt;Alt&gt;numbersign" type="string" value="xfce4-screenshooter -f -c"/>
       <property name="&lt;Alt&gt;dollar" type="string" value="xfce4-screenshooter -r -c"/>
+      <property name="&lt;Primary&gt;space" type="string" value="xfce4-appfinder --collapsed"/>
     </property>
   </property>
   <property name="xfwm4" type="empty">

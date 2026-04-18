@@ -3,3 +3,5 @@
 	name = Jordan Evatt
 [core]
 	excludesfile = /home/jmevatt/.gitignore_global
+[push]
+	autoSetupRemote = true

@@ -3,7 +3,7 @@
 {
   "layer": "top",
   "position": "top",
-  "height": 32,
+  "height": 36,
   "spacing": 6,
   "margin-top": 4,
   "margin-left": 8,
@@ -59,9 +59,11 @@
   },
 
   "temperature": {
-    "thermal-zone": 0,
+    // Stable via PCI device path (k10temp). Hwmon numbers rotate across reboots.
+    "hwmon-path-abs": "/sys/devices/pci0000:00/0000:00:18.3/hwmon",
+    "input-filename": "temp1_input",
     "format": " {temperatureC}°C",
-    "critical-threshold": 80,
+    "critical-threshold": 85,
     "format-critical": " {temperatureC}°C"
   },
 

@@ -1,7 +1,7 @@
 # dotfiles
 
 Jordan's Linux workstation dotfiles, managed with [GNU Stow](https://www.gnu.org/software/stow/).
-Primary host: **Helicon** (Arch Linux, GNOME on Wayland).
+Primary host: **Helicon** (Arch Linux, labwc on Wayland — `gnome/` package retained as fallback session).
 
 ## Layout
 
@@ -35,7 +35,7 @@ dotfiles/
 
 ```bash
 # First-time clone on a new machine
-git clone git@git.evattlabs.com:jordan/dotfiles ~/code/dotfiles
+git clone <repo-url> ~/code/dotfiles
 cd ~/code/dotfiles
 
 # Install everything

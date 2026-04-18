@@ -6,6 +6,7 @@ GNOME dotfiles for Helicon (and any future GNOME-on-Wayland install).
 
 - `.local/bin/gnome-settings-{dump,apply}` — round-trip dconf settings to/from this repo.
 - `.local/bin/gnome-extensions-install` — install + enable the curated extension set from `extensions.txt`.
+- `.local/bin/gdm-sync-monitors` — copy `~/.config/monitors.xml` into `/var/lib/gdm/.config/` so the GDM login screen respects the active display layout. Re-run after changes in Settings → Displays.
 
 GTK themes are applied via dconf (captured in `dconf/org-gnome-desktop-interface.ini`).
 Current: **WhiteSur-Dark** GTK + shell, WhiteSur-dark icons, WhiteSur cursors
@@ -33,6 +34,7 @@ gnome-extensions-install          # install + enable curated extensions
 # — log out and back in —
 gnome-settings-apply --dry-run    # preview
 gnome-settings-apply              # commit
+gdm-sync-monitors                 # pin GDM login layout to current displays
 ```
 
 ## Extensions
