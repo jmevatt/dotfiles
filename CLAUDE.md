@@ -19,7 +19,8 @@ path modifies the same file — they're the same inode.
 | ----------- | ----------------------------------------------------------------------------- |
 | `autostart` | `.config/autostart/*.desktop` — deskflow, discord, kitty, signal              |
 | `git`       | `.gitconfig` (user/email + global excludesfile)                               |
-| `gnome`     | GTK3/4 theming, dconf branch exports, dump/apply/extension-install scripts    |
+| `gnome`     | dconf branch exports + gnome-*-install/dump/apply scripts                     |
+| `gtk`       | `.config/gtk-{3,4}.0/bookmarks` — lowercase file-picker sidebar entries       |
 | `iphone`    | `iPhone.desktop` + `afc-open` / `iphone-open` helpers for iOS device mounting |
 | `kanshi`    | `.config/kanshi/config` — declarative wlroots output profiles                  |
 | `kitty`     | `.config/kitty/` terminal config                                              |

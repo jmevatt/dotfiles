@@ -11,7 +11,8 @@ Each top-level directory is a **stow package** — its contents mirror `$HOME`.
 dotfiles/
 ├── autostart/   → ~/.config/autostart/
 ├── git/         → ~/.gitconfig
-├── gnome/       → ~/.config/gtk-{3,4}.0/, ~/.local/bin/gnome-*   (see gnome/README.md)
+├── gnome/       → dconf dumps + ~/.local/bin/gnome-*   (see gnome/README.md)
+├── gtk/         → ~/.config/gtk-{3,4}.0/bookmarks (lowercase file-picker sidebar)
 ├── iphone/      → ~/.local/bin/{afc,iphone}-open + iPhone.desktop
 ├── kanshi/      → ~/.config/kanshi/config (wlroots output profiles)
 ├── kitty/       → ~/.config/kitty/
