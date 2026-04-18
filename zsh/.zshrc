@@ -61,6 +61,8 @@ export EDITOR=vim
 export CMAKE_BUILD_PARALLEL_LEVEL=$(nproc)
 export LANG=en_US.UTF-8
 
+export OLLAMA_CONTEXT_LENGTH=131072
+
 export PATH="$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH"
 
 alias codex="codex --dangerously-bypass-approvals-and-sandbox"
