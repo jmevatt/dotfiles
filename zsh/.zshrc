@@ -162,3 +162,12 @@ alias claude-mem='bun "/home/jmevatt/.claude/plugins/marketplaces/thedotmack/plu
 
 # Added by codebase-memory-mcp install
 export PATH="/home/jmevatt/.local/bin:$PATH"
+
+# bun completions
+[ -s "/home/jmevatt/.bun/_bun" ] && source "/home/jmevatt/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+. "$HOME/.local/share/../bin/env"
