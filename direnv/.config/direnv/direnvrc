@@ -1,0 +1,49 @@
+# Machine-level direnv helpers. Loaded before every .envrc.
+#
+# Usage in a project's .envrc:
+#
+#   use sops_dotenv infra/secrets/cf.enc.yaml
+#   use sops_dotenv infra/secrets/r2.enc.yaml
+#
+# Decrypts the sops file in dotenv mode and exports each KEY=VALUE
+# into the shell. `watch_file` so direnv reloads when the encrypted
+# file changes (re-encryption after rotation).
+#
+# Requirements: sops on PATH, age private key resolvable via either
+#   - SOPS_AGE_KEY_FILE env var
+#   - default ~/.config/sops/age/keys.txt (sops looks here too)
+
+use_sops_dotenv() {
+  local file="${1:?usage: use sops_dotenv <encrypted-file>}"
+
+  if [[ ! -f "$file" ]]; then
+    log_error "sops_dotenv: file not found: $file"
+    return 1
+  fi
+
+  if ! has sops; then
+    log_error "sops_dotenv: sops binary not on PATH"
+    return 1
+  fi
+
+  watch_file "$file"
+
+  # `sops --decrypt --output-type dotenv` prints KEY=VALUE lines.
+  # We pipe through `sed` to prefix `export ` and `eval` it. Keeping
+  # the decrypted plaintext in a subshell pipe — never written to a
+  # temp file on disk.
+  local decrypted
+  if ! decrypted="$(sops --decrypt --output-type dotenv "$file" 2>&1)"; then
+    log_error "sops_dotenv: failed to decrypt $file"
+    log_error "$decrypted"
+    return 1
+  fi
+
+  while IFS='=' read -r key value; do
+    [[ -z "$key" || "$key" =~ ^[[:space:]]*# ]] && continue
+    # strip surrounding quotes that sops might add for values with spaces
+    value="${value%\"}"
+    value="${value#\"}"
+    export "$key=$value"
+  done <<< "$decrypted"
+}
