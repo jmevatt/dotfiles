@@ -13,6 +13,7 @@ config.window_close_confirmation = 'NeverPrompt'
 config.hide_mouse_cursor_when_typing = true
 config.scrollback_lines = 10000
 config.check_for_updates = false
+config.notification_handling = 'NeverShow'
 config.enable_wayland = true
 
 -- ── Window ────────────────────────────────────────────────────────────────────

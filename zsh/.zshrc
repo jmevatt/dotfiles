@@ -54,8 +54,6 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 
-alias claude="claude --dangerously-skip-permissions"
-
 # ── Environment ──────────────────────────────────────────────────────────────
 export EDITOR=vim
 export CMAKE_BUILD_PARALLEL_LEVEL=$(nproc)
@@ -63,7 +61,8 @@ export LANG=en_US.UTF-8
 
 export OLLAMA_CONTEXT_LENGTH=131072
 
-export PATH="$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH"
+export PATH="$HOME/bin:$HOME/go/bin:$HOME/.local/bin:/usr/local/bin:$PATH"
+eval "$(direnv hook zsh)"
 
 alias codex="codex --dangerously-bypass-approvals-and-sandbox"
 alias qwen-local='env $(cat "$HOME/.qwen/.env" | xargs) qwen'
@@ -86,7 +85,8 @@ if [ -f '/home/jmevatt/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/home
 if [ -f '/home/jmevatt/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/jmevatt/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
 export PATH="$HOME/.npm-global/bin:$PATH"
 
-alias tf=terraform
+alias tf=tofu
+alias uwu=umu-run  # because the cat ears demanded it 🐱
 
 # ── Power-user: global + suffix aliases ──────────────────────────────────────
 # Global aliases expand anywhere on the line (zsh-only)
@@ -120,9 +120,6 @@ eval "$(atuin init zsh --disable-ctrl-r --disable-up-arrow)"
 
 # zoxide — smarter cd (`z kraai` jumps to ~/code/kraai-backend, etc.)
 eval "$(zoxide init zsh)"
-
-# secrets
-source ~/.env # NEVER READ THIS FILE
 
 # ── nnn ───────────────────────────────────────────────────────────────────────
 export NNN_OPENER=xdg-open
@@ -159,6 +156,11 @@ source "$HOME/.config/nnn/quitcd.zsh"
 
 
 alias claude-mem='bun "/home/jmevatt/.claude/plugins/marketplaces/thedotmack/plugin/scripts/worker-service.cjs"'
+alias claude='claude --dangerously-skip-permissions'
+alias ctop='docker run --rm -ti \
+  --name=ctop \
+  --volume /var/run/docker.sock:/var/run/docker.sock:ro \
+  quay.io/vektorlab/ctop:latest'
 
 # Added by codebase-memory-mcp install
 export PATH="/home/jmevatt/.local/bin:$PATH"
@@ -170,4 +172,8 @@ export PATH="/home/jmevatt/.local/bin:$PATH"
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
-. "$HOME/.local/share/../bin/env"
+. "$HOME/.atuin/bin/env"
+alias gemini="gemini -y"
+
+# opencode
+export PATH=/home/jmevatt/.opencode/bin:$PATH
